@@ -11,13 +11,13 @@ const pillars = [
     icon: Eye,
     title: "Our Vision",
     description:
-      "A Bhopal where every neighbourhood is clean, every street is lined with trees, and no one goes without basic clothing and dignity.",
+      "A Bhopal where every neighbourhood is clean, every road is lined with trees, and no one goes without basic clothing and dignity.",
   },
   {
     icon: Heart,
     title: "Our Values",
     description:
-      "Compassion, community ownership, environmental responsibility, and the belief that small, consistent efforts create lasting change.",
+      "Compassion, community ownership, and the belief that small, consistent efforts create lasting change for our city and its people.",
   },
 ]
 
@@ -30,11 +30,11 @@ export function Mission() {
             Who We Are
           </p>
           <h2 className="mt-3 font-serif text-3xl tracking-tight text-foreground sm:text-4xl md:text-5xl text-balance">
-            Driven by Purpose, United by Service
+            Driven by Purpose, United by Action
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Seva Bhopal Foundation is a volunteer-led NGO rooted in the heart of
-            Bhopal. We believe that change begins at the community level.
+            We are a group of passionate volunteers from Bhopal dedicated to
+            making our city a better place for everyone.
           </p>
         </div>
 
@@ -42,9 +42,9 @@ export function Mission() {
           {pillars.map((pillar) => (
             <div
               key={pillar.title}
-              className="group rounded-2xl border border-border bg-card p-8 transition-all hover:border-primary/30 hover:shadow-lg"
+              className="group rounded-lg border border-border bg-card p-8 transition-all hover:border-primary/30 hover:shadow-lg"
             >
-              <div className="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+              <div className="flex size-12 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                 <pillar.icon className="size-6" />
               </div>
               <h3 className="mt-6 text-xl font-bold text-card-foreground">

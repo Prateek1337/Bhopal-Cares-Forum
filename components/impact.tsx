@@ -17,8 +17,8 @@ export function Impact() {
             Numbers That Tell Our Story
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Every drive, every volunteer, and every act of kindness adds up to
-            meaningful change.
+            Every drive, every sapling, every piece of clothing adds up to
+            meaningful change across Bhopal.
           </p>
         </div>
 
@@ -26,7 +26,7 @@ export function Impact() {
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="flex flex-col items-center rounded-2xl border border-border bg-card p-8 text-center transition-all hover:border-primary/30 hover:shadow-lg"
+              className="flex flex-col items-center rounded-lg border border-border bg-card p-8 text-center transition-all hover:border-primary/30 hover:shadow-lg"
             >
               <span className="font-serif text-4xl tracking-tight text-primary md:text-5xl">
                 {stat.value}

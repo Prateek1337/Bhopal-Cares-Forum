@@ -6,25 +6,25 @@ const initiatives = [
     icon: Sparkles,
     title: "Cleaning Drives",
     description:
-      "We organise neighbourhood and public space cleanups across Bhopal, from lakes and ghats to markets and residential colonies. Our volunteers come together every month to restore the beauty of our city.",
+      "From lakesides to public parks, our volunteers gather regularly to clean and restore public spaces across Bhopal, making our city shine.",
     image: "/images/cleaning-drive.jpg",
-    imageAlt: "Volunteers cleaning a public park in Bhopal",
+    imageAlt: "Volunteers cleaning a public space in Bhopal",
   },
   {
     icon: TreePine,
     title: "Plantation Drives",
     description:
-      "From saplings along roadsides to full-scale plantation events in parks and schools, we are committed to making Bhopal greener. Every tree planted is a step towards a cooler, healthier city.",
+      "We organise large-scale plantation events across the city, planting thousands of saplings to make Bhopal greener for future generations.",
     image: "/images/plantation-drive.jpg",
-    imageAlt: "Hands planting a sapling in soil during a plantation drive",
+    imageAlt: "Volunteers planting saplings in Bhopal",
   },
   {
     icon: Shirt,
     title: "Cloth Donation Drives",
     description:
-      "We collect gently used clothes from donors across the city and distribute them to families in need. Dignity through clothing is a fundamental act of kindness we champion.",
+      "We collect gently used clothes from donors and distribute them to families in need, ensuring everyone has access to basic clothing.",
     image: "/images/cloth-donation.jpg",
-    imageAlt: "Volunteers distributing clothes to families in Bhopal",
+    imageAlt: "Volunteers distributing clothes to families in need",
   },
 ]
 
@@ -40,12 +40,11 @@ export function WhatWeDo() {
             What We Do
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Three pillars of action that drive real, visible impact across
-            Bhopal.
+            Three pillars of community action that drive our mission forward.
           </p>
         </div>
 
-        <div className="mt-16 flex flex-col gap-20">
+        <div className="mt-16 flex flex-col gap-24">
           {initiatives.map((item, index) => (
             <div
               key={item.title}
@@ -54,21 +53,23 @@ export function WhatWeDo() {
               }`}
             >
               {/* Image */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl lg:w-1/2">
-                <Image
-                  src={item.image}
-                  alt={item.imageAlt}
-                  fill
-                  className="object-cover"
-                />
+              <div className="relative w-full lg:w-1/2">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
+                  <Image
+                    src={item.image}
+                    alt={item.imageAlt}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
               </div>
 
               {/* Text */}
               <div className="flex flex-col justify-center lg:w-1/2">
-                <div className="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <div className="flex size-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
                   <item.icon className="size-6" />
                 </div>
-                <h3 className="mt-5 font-serif text-2xl font-normal tracking-tight text-foreground sm:text-3xl">
+                <h3 className="mt-5 font-serif text-2xl tracking-tight text-foreground sm:text-3xl">
                   {item.title}
                 </h3>
                 <p className="mt-4 text-lg leading-relaxed text-muted-foreground">

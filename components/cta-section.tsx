@@ -5,11 +5,11 @@ export function CtaSection() {
   return (
     <section id="contact" className="py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="rounded-3xl bg-primary p-10 text-center md:p-16">
+        <div className="overflow-hidden rounded-lg bg-primary p-10 text-center md:p-16">
           <h2 className="font-serif text-3xl tracking-tight text-primary-foreground sm:text-4xl md:text-5xl text-balance">
             Be the Change Bhopal Needs
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-primary-foreground/85">
+          <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-primary-foreground/80">
             Whether you can spare an hour or a whole day, every bit of effort
             counts. Join our next drive, donate clothes, or help us spread the
             word.

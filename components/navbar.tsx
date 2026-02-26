@@ -7,7 +7,7 @@ import { Menu, X, Leaf } from "lucide-react"
 
 const navLinks = [
   { label: "Mission", href: "#mission" },
-  { label: "What We Do", href: "#what-we-do" },
+  { label: "Our Work", href: "#what-we-do" },
   { label: "Impact", href: "#impact" },
   { label: "Drives", href: "#drives" },
   { label: "Contact", href: "#contact" },
@@ -17,12 +17,12 @@ export function Navbar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/85 backdrop-blur-md border-b border-border">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-2">
-          <Leaf className="size-7 text-primary" />
-          <span className="text-xl font-bold font-serif tracking-tight text-foreground">
-            Seva Bhopal
+          <Leaf className="size-6 text-primary" />
+          <span className="text-lg font-bold font-serif tracking-tight text-foreground">
+            Seva Bhopal Foundation
           </span>
         </Link>
 
