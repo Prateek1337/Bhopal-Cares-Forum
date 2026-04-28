@@ -41,7 +41,13 @@ export function Hero() {
             className="text-base px-8 py-3 h-auto border-primary-foreground/30 text-primary-foreground bg-transparent hover:bg-primary-foreground/10 hover:text-primary-foreground"
             asChild
           >
-            <Link href="#contact">Volunteer With Us</Link>
+            <Link
+              href="https://docs.google.com/forms/d/e/1FAIpQLSccNIrhpQ8-JnMktQOGPkDN5H61Wu15WtitbBdW7Gjpe4cFEA/viewform?pli=1"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Volunteer With Us
+            </Link>
           </Button>
         </div>
 
