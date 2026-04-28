@@ -9,13 +9,13 @@ export function Footer() {
           <div className="flex items-center gap-2">
             <Leaf className="size-5 text-primary" />
             <span className="text-lg font-bold font-serif tracking-tight text-foreground">
-              Seva Bhopal Foundation
+              Bhopal Cares Forum
             </span>
           </div>
 
           <nav aria-label="Footer navigation">
             <ul className="flex flex-wrap items-center justify-center gap-6">
-              {["Mission", "Our Work", "Impact", "Drives", "Contact"].map(
+              {["Mission", "Our Work", "Impact", "Donate"].map(
                 (item) => (
                   <li key={item}>
                     <Link
@@ -33,7 +33,7 @@ export function Footer() {
 
         <div className="mt-8 border-t border-border pt-8 text-center">
           <p className="text-sm text-muted-foreground">
-            Seva Bhopal Foundation &middot; Bhopal, Madhya Pradesh, India
+            Bhopal Cares Forum &middot; Bhopal, Madhya Pradesh, India
           </p>
         </div>
       </div>

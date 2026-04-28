@@ -7,8 +7,8 @@ const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans" });
 const dmSerif = DM_Serif_Display({ weight: "400", subsets: ["latin"], variable: "--font-dm-serif" });
 
 export const metadata: Metadata = {
-  title: 'Seva Bhopal Foundation - Cleaning, Plantation & Cloth Donation Drives',
-  description: 'Seva Bhopal Foundation is a community-driven NGO in Bhopal, India dedicated to cleaning drives, plantation drives, and cloth donation drives for a cleaner, greener, and kinder city.',
+  title: 'Bhopal Cares Forum - Cleaning, Plantation & Cloth Donation Drives',
+  description: 'Bhopal Cares Forum is a community-driven NGO in Bhopal, India dedicated to cleaning drives, plantation drives, and cloth donation drives for a cleaner, greener, and kinder city.',
   icons: {
     icon: [
       {
