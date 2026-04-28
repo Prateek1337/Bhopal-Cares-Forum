@@ -6,10 +6,11 @@ import { Button } from "@/components/ui/button"
 import { Menu, X, Leaf } from "lucide-react"
 
 const navLinks = [
-  { label: "Mission", href: "#mission" },
-  { label: "Our Work", href: "#what-we-do" },
-  { label: "Impact", href: "#impact" },
-  { label: "Donate", href: "#donate" },
+  { label: "Mission", href: "/#mission" },
+  { label: "Our Work", href: "/#what-we-do" },
+  { label: "Impact", href: "/#impact" },
+  { label: "Gallery", href: "/#gallery" },
+  { label: "Donate", href: "/#donate" },
 ]
 
 export function Navbar() {

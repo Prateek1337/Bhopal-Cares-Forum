@@ -15,11 +15,15 @@ export function Footer() {
 
           <nav aria-label="Footer navigation">
             <ul className="flex flex-wrap items-center justify-center gap-6">
-              {["Mission", "Our Work", "Impact", "Donate"].map(
+              {["Mission", "Our Work", "Impact", "Gallery", "Donate"].map(
                 (item) => (
-                  <li key={item}>
+                  <li key={ item}>
                     <Link
-                      href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
+                      href={
+                        item === "Gallery"
+                          ? "/#gallery"
+                          : `/#${item.toLowerCase().replace(/\s+/g, "-")}`
+                      }
                       className="text-sm text-muted-foreground transition-colors hover:text-primary"
                     >
                       {item}
