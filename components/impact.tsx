@@ -1,8 +1,8 @@
 const stats = [
-  { value: "120+", label: "Drives Completed" },
-  { value: "8,000+", label: "Trees Planted" },
-  { value: "15,000+", label: "Clothes Donated" },
-  { value: "2,500+", label: "Active Volunteers" },
+  { value: "38", label: "Drives Completed" },
+  { value: "1280+", label: "Trees Planted" },
+  { value: "4135+", label: "kg Waste Removed" },
+  { value: "100+", label: "Active Volunteers" },
 ]
 
 export function Impact() {

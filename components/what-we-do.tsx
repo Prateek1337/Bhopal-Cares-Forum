@@ -6,7 +6,7 @@ const initiatives = [
     icon: Sparkles,
     title: "Cleaning Drives",
     description:
-      "From lakesides to public parks, our volunteers gather regularly to clean and restore public spaces across Bhopal, making our city shine.",
+      "Bhopal may rank among India's cleanest cities on paper, but the ground reality tells a different story. Witnessing this gap firsthand, we at Bhopal Cares Forum chose action over conversation because real change begins at the grassroots.To date, we have conducted 26 cleanliness drives across the city, collecting over 4,000 kilograms of waste from some of Bhopal's most cherished natural spaces, including Kaliyasot Dam, Hathai Kheda Dam, Kerwa Dam, and Ekant Park. But our work doesn't stop at picking up waste. We have installed dustbins and put up awareness posters at Kaliyasot, and distributed eco-friendly plates to local shopkeepers to reduce their dependence on single-use plastics because a truly clean city is built on conscious habits, not just clean streets.",
     image: "/images/cleaning-drive.jpg",
     imageAlt: "Volunteers cleaning a public space in Bhopal",
   },
@@ -14,15 +14,15 @@ const initiatives = [
     icon: TreePine,
     title: "Plantation Drives",
     description:
-      "We organise large-scale plantation events across the city, planting thousands of saplings to make Bhopal greener for future generations.",
+      "Within just three months of forming our community, we planted 1,280 saplings—a testament to what collective will and shared purpose can achieve. In a span of only 43 days, we conducted eight plantation drives across various locations in Bhopal, bringing together people from all walks of life who believe in a greener tomorrow. Together, we not only met but surpassed our goal of planting 1,000 saplings in 2025. This milestone was made possible by every pair of hands that showed up and every heart that cared. For us, plantation is not merely the act of putting a sapling into the ground; it is an act of giving life back to nature. We nurture each sapling as one would nurture a child—with patience, care, and dedication—so that one day, these trees will grow tall enough to provide shelter and a lifeline for birds, animals, and all living beings around them. At Bhopal Cares Forum, we are not just planting trees; we are planting hope.",
     image: "/images/plantation-drive.jpg",
     imageAlt: "Volunteers planting saplings in Bhopal",
   },
   {
     icon: Shirt,
-    title: "Cloth Donation Drives",
+    title: "Donation (UPAHARAM)",
     description:
-      "We collect gently used clothes from donors and distribute them to families in need, ensuring everyone has access to basic clothing.",
+      "The word UPAHARAM means gift and that is precisely the spirit behind our donation drives. At Bhopal Cares Forum, we believe that a gift is not just a material offering; it is a gesture of love, dignity, and solidarity towards those who need it most. Through Upaharam, we collect and distribute clothes, toys, books, and other essential items to underprivileged communities, ensuring that what is no longer needed by some becomes something meaningful for others. So far, we have conducted two Upaharam drives - the first at Daankheda Basti, Kolar Road, and the second at Mandwa Basti, Nehru Nagar. Each drive has been a deeply humbling experience, the bright smiles of young girls and the heartfelt blessings of elders have reminded us time and again why this work truly matters. These moments are not just milestones for our organisation; they are the very reason we continue to show up, drive after drive.",
     image: "/images/cloth-donation.jpg",
     imageAlt: "Volunteers distributing clothes to families in need",
   },
