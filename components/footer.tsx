@@ -4,7 +4,7 @@ import { Leaf } from "lucide-react"
 export function Footer() {
   return (
     <footer className="border-t border-border bg-card">
-      <div className="mx-auto max-w-6xl px-6 py-12">
+      <div className="mx-auto max-w-6xl px-6 py-10">
         <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
           <div className="flex items-center gap-2">
             <Leaf className="size-5 text-primary" />
@@ -35,10 +35,15 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="mt-8 border-t border-border pt-8 text-center">
-          <p className="text-sm text-muted-foreground">
-            Bhopal Cares Forum &middot; Bhopal, Madhya Pradesh, India
-          </p>
+        <div className="mt-6 border-t border-border pt-5 text-center">
+          <Link
+            href="https://github.com/Prateek1337/Bhopal-Cares-Forum"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-muted-foreground transition-colors hover:text-primary"
+          >
+            Made with Love ❤️ for Bhopal Cares Forum
+          </Link>
         </div>
       </div>
     </footer>
