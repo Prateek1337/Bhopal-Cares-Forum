@@ -11,21 +11,8 @@ export const metadata: Metadata = {
   title: 'Bhopal Cares Forum - Cleanliness, Plantation & Donation Drives',
   description: 'Bhopal Cares Forum is a community-driven NGO in Bhopal, India dedicated to cleanliness drives, plantation drives, and donation drives for a cleaner, greener, and kinder city.',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/favicon-2.png',
+    apple: '/favicon-2.png',
   },
 }
 
@@ -39,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${dmSans.variable} ${dmSerif.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" forcedTheme="light" enableSystem={false} disableTransitionOnChange>
           {children}
