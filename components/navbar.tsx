@@ -2,8 +2,9 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Menu, X, Leaf } from "lucide-react"
+import { Menu, X } from "lucide-react"
 
 const navLinks = [
   { label: "Mission", href: "/#mission" },
@@ -19,11 +20,15 @@ export function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/85 backdrop-blur-md border-b border-border">
       <nav className="relative mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link href="/" className="flex items-center gap-2">
-          <Leaf className="size-6 text-primary" />
-          <span className="text-lg font-bold font-serif tracking-tight text-foreground">
-            Bhopal Cares Forum
-          </span>
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/logo-2.png"
+            alt="Bhopal Cares Forum logo"
+            width={180}
+            height={48}
+            priority
+            className="h-12 w-auto object-contain"
+          />
         </Link>
 
         {/* Desktop nav */}

@@ -1,17 +1,18 @@
 import Link from "next/link"
-import { Leaf } from "lucide-react"
+import Image from "next/image"
 
 export function Footer() {
   return (
     <footer className="border-t border-border bg-card">
       <div className="mx-auto max-w-6xl px-6 py-10">
         <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
-          <div className="flex items-center gap-2">
-            <Leaf className="size-5 text-primary" />
-            <span className="text-lg font-bold font-serif tracking-tight text-foreground">
-              Bhopal Cares Forum
-            </span>
-          </div>
+          <Image
+            src="/logo-4.png"
+            alt="Bhopal Cares Forum logo"
+            width={180}
+            height={48}
+            className="h-12 w-auto object-contain"
+          />
 
           <nav aria-label="Footer navigation">
             <ul className="flex flex-wrap items-center justify-center gap-6">
@@ -42,7 +43,7 @@ export function Footer() {
             rel="noopener noreferrer"
             className="text-sm text-muted-foreground transition-colors hover:text-primary"
           >
-            Made with Love ❤️ for Bhopal Cares Forum
+            Made with ❤️ for Bhopal Cares Forum
           </Link>
         </div>
       </div>
