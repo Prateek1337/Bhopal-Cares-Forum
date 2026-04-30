@@ -26,7 +26,6 @@ export function GalleryBatchedGrid({ photos, batchSize, debug = true }: GalleryB
         <GalleryImageCard
           key={item.id}
           alt={item.alt}
-          date={item.date}
           imageSrc={item.imageSrc}
           thumbnailSrc={item.thumbnailSrc}
           thumbnailDelayMs={thumbnailDelayMs}

@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from "react"
 
 type GalleryImageCardProps = {
   alt: string
-  date: string
   imageSrc: string
   thumbnailSrc?: string
   thumbnailDelayMs?: number
@@ -25,7 +24,6 @@ function getUrlKind(url: string) {
 
 export function GalleryImageCard({
   alt,
-  date,
   imageSrc,
   thumbnailSrc,
   thumbnailDelayMs = 400,
@@ -165,9 +163,6 @@ export function GalleryImageCard({
           )}
         </button>
 
-        <div className="px-1 py-1 text-center leading-none">
-          <span className="text-[9px] text-muted-foreground">{date}</span>
-        </div>
       </article>
 
       {openPreview && !failed ? (
