@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 
-import { cn } from "@/lib/utils"
+import { IMPACT_AUTO_TRIGGER_DELAY_MS, cn } from "@/lib/utils"
 
 const stats = [
   { value: "38", label: "Drives Completed", finalOrder: 0 },
@@ -33,6 +33,8 @@ function getFixedScatterConfig(size: number): ScatterConfig[] {
 }
 
 export function Impact() {
+  const sectionRef = useRef<HTMLElement | null>(null)
+  const organizedRef = useRef(false)
   const [organized, setOrganized] = useState(false)
   const [showValues, setShowValues] = useState(false)
   const [scatterConfig, setScatterConfig] = useState<ScatterConfig[]>(() =>
@@ -42,6 +44,7 @@ export function Impact() {
   const cardRefs = useRef<Record<string, HTMLDivElement | null>>({})
   const firstRectsRef = useRef<Record<string, DOMRect>>({})
   const revealTimerRef = useRef<number | null>(null)
+  const autoTriggerTimerRef = useRef<number | null>(null)
 
   useLayoutEffect(() => {
     if (!pendingFlip) return
@@ -84,12 +87,56 @@ export function Impact() {
   }, [organized, scatterConfig, pendingFlip])
 
   useEffect(() => {
+    organizedRef.current = organized
+  }, [organized])
+
+  useEffect(() => {
     return () => {
       if (revealTimerRef.current) {
         window.clearTimeout(revealTimerRef.current)
       }
+      if (autoTriggerTimerRef.current) {
+        window.clearTimeout(autoTriggerTimerRef.current)
+      }
     }
   }, [])
+
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (!entry?.isIntersecting) {
+          if (autoTriggerTimerRef.current) {
+            window.clearTimeout(autoTriggerTimerRef.current)
+            autoTriggerTimerRef.current = null
+          }
+          if (organizedRef.current) {
+            toggleLayout()
+          }
+          return
+        }
+        if (organized) return
+        autoTriggerTimerRef.current = window.setTimeout(() => {
+          if (organizedRef.current) return
+          toggleLayout()
+        }, IMPACT_AUTO_TRIGGER_DELAY_MS)
+      },
+      { threshold: 0.35 }
+    )
+
+    observer.observe(section)
+    return () => observer.disconnect()
+  }, [organized])
+
+  useEffect(() => {
+    if (!organized) return
+    if (!autoTriggerTimerRef.current) return
+    window.clearTimeout(autoTriggerTimerRef.current)
+    autoTriggerTimerRef.current = null
+  }, [organized])
 
   const toggleLayout = () => {
     const firstRects: Record<string, DOMRect> = {}
@@ -121,7 +168,7 @@ export function Impact() {
   }
 
   return (
-    <section id="impact" className="py-24 md:py-32">
+    <section id="impact" ref={sectionRef} className="py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-6">
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">

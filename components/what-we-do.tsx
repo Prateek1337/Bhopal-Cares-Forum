@@ -71,6 +71,7 @@ export function WhatWeDo() {
               icon={<item.icon className="size-5" />}
               direction={index % 2 === 0 ? "left" : "right"}
               theme={item.theme}
+              autoOpenOnView
             />
           ))}
         </div>

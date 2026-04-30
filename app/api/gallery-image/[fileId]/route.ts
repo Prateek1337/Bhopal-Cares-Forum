@@ -21,9 +21,12 @@ export async function GET(_: Request, context: RouteContext) {
   }
 
   const url = `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}?alt=media&key=${apiKey}`
+  const safeUrl = url.replace(/key=[^&]+/, "key=***")
 
   try {
     const response = await fetch(url, { cache: "no-store" })
+    const upstreamContentType = response.headers.get("content-type") || "unknown"
+    const upstreamContentLength = response.headers.get("content-length") || "unknown"
 
     if (!response.ok) {
       const body = await response.text()
@@ -31,7 +34,10 @@ export async function GET(_: Request, context: RouteContext) {
       if (GALLERY_DEBUG) {
         console.error("[gallery][image-proxy][non-ok]", {
           fileId,
+          url: safeUrl,
           status: response.status,
+          contentType: upstreamContentType,
+          contentLength: upstreamContentLength,
           body,
         })
       }
@@ -47,6 +53,17 @@ export async function GET(_: Request, context: RouteContext) {
     const contentType = response.headers.get("content-type") || "application/octet-stream"
     const buffer = await response.arrayBuffer()
 
+    if (GALLERY_DEBUG) {
+      console.log("[gallery][image-proxy][ok]", {
+        fileId,
+        url: safeUrl,
+        status: response.status,
+        contentType,
+        contentLength: upstreamContentLength,
+        responseBytes: buffer.byteLength,
+      })
+    }
+
     return new NextResponse(buffer, {
       status: 200,
       headers: {
@@ -58,6 +75,7 @@ export async function GET(_: Request, context: RouteContext) {
     if (GALLERY_DEBUG) {
       console.error("[gallery][image-proxy][exception]", {
         fileId,
+        url: safeUrl,
         error: error instanceof Error ? error.message : String(error),
       })
     }
