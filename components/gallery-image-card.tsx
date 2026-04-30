@@ -167,8 +167,12 @@ export function GalleryImageCard({
 
       {openPreview && !failed ? (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
-          onClick={() => setOpenPreview(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-3 sm:p-4"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setOpenPreview(false)
+            }
+          }}
           role="dialog"
           aria-modal="true"
           aria-label="Image preview"
@@ -176,16 +180,13 @@ export function GalleryImageCard({
           <button
             type="button"
             onClick={() => setOpenPreview(false)}
-            className="absolute right-4 top-4 rounded-md bg-black/60 px-3 py-1.5 text-sm text-white hover:bg-black/75"
+            className="absolute right-3 top-[max(0.75rem,env(safe-area-inset-top))] z-20 rounded-md bg-black/85 px-3 py-1.5 text-sm font-medium text-white shadow-lg ring-1 ring-white/30 hover:bg-black"
             aria-label="Close image preview"
           >
             Close
           </button>
 
-          <div
-            className="relative flex h-[90vh] w-[90vw] items-center justify-center"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="relative inline-flex max-h-full max-w-full items-center justify-center">
             {!previewFailed ? (
               <>
                 {previewLoading ? (
@@ -198,7 +199,7 @@ export function GalleryImageCard({
                 <img
                   src={previewSrcWithAttempt}
                   alt={alt}
-                  className={`max-h-[90vh] max-w-[90vw] rounded-lg object-contain ${previewLoading ? "opacity-0" : "opacity-100"}`}
+                  className={`max-h-[calc(100vh-5rem)] max-w-[95vw] rounded-lg object-contain sm:max-h-[90vh] sm:max-w-[90vw] ${previewLoading ? "opacity-0" : "opacity-100"}`}
                   onLoad={() => setPreviewLoading(false)}
                   onError={() => {
                     if (debug) {
