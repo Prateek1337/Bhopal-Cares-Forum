@@ -2,6 +2,7 @@ export type GalleryItem = {
   id: string
   title: string
   imageSrc: string
+  thumbnailSrc?: string
   alt: string
   date: string
   // Reserved for future Google Drive integration
