@@ -9,7 +9,12 @@ export type GalleryItem = {
   driveFileId?: string
 }
 
-export type GalleryCategory = "plantation" | "cleaning" | "cloth"
+export type GalleryCategory =
+  | "plantation"
+  | "cleaning"
+  | "cloth"
+  | "dustbin"
+  | "seedball"
 
 export const categoryMeta: {
   key: GalleryCategory
@@ -34,6 +39,18 @@ export const categoryMeta: {
     title: "Donation Photos",
     subtitle: "Community support through donation",
     coverImage: "/images/upaharam.jpg",
+  },
+  {
+    key: "dustbin",
+    title: "Dustbin Installation",
+    subtitle: "Dustbin placement initiatives in public spaces",
+    coverImage: "/images/plantation.jpg",
+  },
+  {
+    key: "seedball",
+    title: "SeedBall Making",
+    subtitle: "Preparing seed balls for green restoration drives",
+    coverImage: "/images/plantation.jpg",
   },
 ]
 
@@ -84,6 +101,38 @@ export const galleryByCategory: Record<GalleryCategory, GalleryItem[]> = {
       imageSrc: "/images/upaharam.jpg",
       alt: "Volunteers organizing donated clothes",
       date: "Sep 2025",
+    },
+  ],
+  dustbin: [
+    {
+      id: "dustbin-1",
+      title: "Dustbin Installation Drive",
+      imageSrc: "/images/plantation.jpg",
+      alt: "Volunteers installing public dustbins",
+      date: "Mar 2026",
+    },
+    {
+      id: "dustbin-2",
+      title: "Clean Streets Initiative",
+      imageSrc: "/images/plantation.jpg",
+      alt: "Newly installed dustbins in the neighborhood",
+      date: "Dec 2025",
+    },
+  ],
+  seedball: [
+    {
+      id: "seedball-1",
+      title: "SeedBall Workshop",
+      imageSrc: "/images/plantation.jpg",
+      alt: "Community members preparing seed balls",
+      date: "Feb 2026",
+    },
+    {
+      id: "seedball-2",
+      title: "Green Future Campaign",
+      imageSrc: "/images/plantation.jpg",
+      alt: "Seed balls ready for plantation activity",
+      date: "Nov 2025",
     },
   ],
 }

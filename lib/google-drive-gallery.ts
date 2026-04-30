@@ -23,6 +23,8 @@ const categoryFolderEnvMap: Record<GalleryCategory, string | undefined> = {
   plantation: process.env.GOOGLE_DRIVE_FOLDER_ID_PLANTATION,
   cleaning: process.env.GOOGLE_DRIVE_FOLDER_ID_CLEANLINESS,
   cloth: process.env.GOOGLE_DRIVE_FOLDER_ID_DONATION,
+  dustbin: process.env.GOOGLE_DRIVE_FOLDER_ID_DUSTBIN_INSTALLATION,
+  seedball: process.env.GOOGLE_DRIVE_FOLDER_ID_SEEDBALL_MAKING,
 }
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
