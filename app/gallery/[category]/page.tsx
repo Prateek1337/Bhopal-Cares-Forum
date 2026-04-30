@@ -15,7 +15,13 @@ type CategoryPageProps = {
   }>
 }
 
-const validCategories: GalleryCategory[] = ["plantation", "cleaning", "cloth"]
+const validCategories: GalleryCategory[] = [
+  "plantation",
+  "cleaning",
+  "cloth",
+  "dustbin",
+  "seedball",
+]
 
 export default async function GalleryCategoryPage({ params }: CategoryPageProps) {
   const { category } = await params
