@@ -1,13 +1,13 @@
-import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { GalleryImageCard } from "@/components/gallery-image-card"
 import {
   categoryMeta,
-  galleryByCategory,
   type GalleryCategory,
 } from "@/lib/gallery-data"
+import { getDriveGalleryByCategory } from "@/lib/google-drive-gallery"
 
 type CategoryPageProps = {
   params: Promise<{
@@ -25,7 +25,7 @@ export default async function GalleryCategoryPage({ params }: CategoryPageProps)
   }
 
   const typedCategory = category as GalleryCategory
-  const photos = galleryByCategory[typedCategory]
+  const { items: photos, error } = await getDriveGalleryByCategory(typedCategory)
   const meta = categoryMeta.find((item) => item.key === typedCategory)
 
   if (!meta) {
@@ -50,30 +50,27 @@ export default async function GalleryCategoryPage({ params }: CategoryPageProps)
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {photos.map((item) => (
-              <article
-                key={item.id}
-                className="group overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image
-                    src={item.imageSrc}
-                    alt={item.alt}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                  />
-                </div>
-
-                <div className="space-y-2 p-4">
-                  <span className="text-xs text-muted-foreground">{item.date}</span>
-                  <h2 className="text-base font-semibold text-foreground">
-                    {item.title}
-                  </h2>
-                </div>
-              </article>
-            ))}
-          </div>
+          {error ? (
+            <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive">
+              Unable to load images from Google Drive. {error}
+            </div>
+          ) : photos.length === 0 ? (
+            <div className="rounded-xl border border-border bg-card p-4 text-sm text-muted-foreground">
+              No images found in this Drive folder.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {photos.map((item) => (
+                <GalleryImageCard
+                  key={item.id}
+                  title={item.title}
+                  alt={item.alt}
+                  date={item.date}
+                  imageSrc={item.imageSrc}
+                />
+              ))}
+            </div>
+          )}
 
           <div className="mt-10 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-6">
             <Link
