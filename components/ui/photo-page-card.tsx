@@ -67,7 +67,6 @@ export function PhotoPageCard({
   className,
 }: PhotoPageCardProps) {
   const [open, setOpen] = useState(defaultOpen)
-  const [hasAutoOpened, setHasAutoOpened] = useState(false)
   const id = useId()
   const cardRef = useRef<HTMLButtonElement | null>(null)
   const autoOpenTimerRef = useRef<number | null>(null)
@@ -76,16 +75,22 @@ export function PhotoPageCard({
 
   useEffect(() => {
     const card = cardRef.current
-    if (!card || !autoOpenOnView || hasAutoOpened || open) return
+    if (!card || !autoOpenOnView) return
 
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0]
-        if (!entry?.isIntersecting || hasAutoOpened || open) return
+        if (!entry?.isIntersecting) {
+          if (autoOpenTimerRef.current) {
+            window.clearTimeout(autoOpenTimerRef.current)
+            autoOpenTimerRef.current = null
+          }
+          setOpen(false)
+          return
+        }
+        if (open) return
         autoOpenTimerRef.current = window.setTimeout(() => {
           setOpen(true)
-          setHasAutoOpened(true)
-          observer.disconnect()
         }, INITIATIVES_AUTO_TRIGGER_DELAY_MS)
       },
       { threshold: 0.3 }
@@ -98,7 +103,7 @@ export function PhotoPageCard({
         window.clearTimeout(autoOpenTimerRef.current)
       }
     }
-  }, [autoOpenOnView, hasAutoOpened, open])
+  }, [autoOpenOnView, open])
 
   return (
     <button

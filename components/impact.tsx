@@ -37,7 +37,6 @@ export function Impact() {
   const organizedRef = useRef(false)
   const [organized, setOrganized] = useState(false)
   const [showValues, setShowValues] = useState(false)
-  const [hasAutoTriggered, setHasAutoTriggered] = useState(false)
   const [scatterConfig, setScatterConfig] = useState<ScatterConfig[]>(() =>
     getFixedScatterConfig(stats.length)
   )
@@ -104,17 +103,25 @@ export function Impact() {
 
   useEffect(() => {
     const section = sectionRef.current
-    if (!section || hasAutoTriggered) return
+    if (!section) return
 
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0]
-        if (!entry?.isIntersecting || hasAutoTriggered || organized) return
+        if (!entry?.isIntersecting) {
+          if (autoTriggerTimerRef.current) {
+            window.clearTimeout(autoTriggerTimerRef.current)
+            autoTriggerTimerRef.current = null
+          }
+          if (organizedRef.current) {
+            toggleLayout()
+          }
+          return
+        }
+        if (organized) return
         autoTriggerTimerRef.current = window.setTimeout(() => {
           if (organizedRef.current) return
-          setHasAutoTriggered(true)
           toggleLayout()
-          observer.disconnect()
         }, IMPACT_AUTO_TRIGGER_DELAY_MS)
       },
       { threshold: 0.35 }
@@ -122,7 +129,7 @@ export function Impact() {
 
     observer.observe(section)
     return () => observer.disconnect()
-  }, [hasAutoTriggered, organized])
+  }, [organized])
 
   useEffect(() => {
     if (!organized) return
