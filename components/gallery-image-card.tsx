@@ -11,7 +11,7 @@ type GalleryImageCardProps = {
   debug?: boolean
 }
 
-const CARD_SETTLE_TIMEOUT_MS = 8000
+const CARD_SETTLE_TIMEOUT_MS = Number(process.env.NEXT_PUBLIC_GALLERY_CARD_TIMEOUT_MS ?? "25000")
 export function GalleryImageCard({
   alt,
   date,
