@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 
 const GALLERY_DEBUG = process.env.GALLERY_DEBUG !== "false"
-const IMAGE_PROXY_REVALIDATE_SECONDS = 60 * 60
+const IMAGE_PROXY_CACHE_SECONDS = 60 * 60
 
 type RouteContext = {
   params: Promise<{
@@ -23,9 +23,7 @@ export async function GET(_: Request, context: RouteContext) {
   const url = `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}?alt=media&key=${apiKey}`
 
   try {
-    const response = await fetch(url, {
-      next: { revalidate: IMAGE_PROXY_REVALIDATE_SECONDS },
-    })
+    const response = await fetch(url, { cache: "no-store" })
 
     if (!response.ok) {
       const body = await response.text()
@@ -53,7 +51,7 @@ export async function GET(_: Request, context: RouteContext) {
       status: 200,
       headers: {
         "content-type": contentType,
-        "cache-control": `public, max-age=${IMAGE_PROXY_REVALIDATE_SECONDS}, s-maxage=${IMAGE_PROXY_REVALIDATE_SECONDS}, stale-while-revalidate=86400`,
+        "cache-control": `public, max-age=${IMAGE_PROXY_CACHE_SECONDS}, s-maxage=${IMAGE_PROXY_CACHE_SECONDS}, stale-while-revalidate=86400`,
       },
     })
   } catch (error) {
