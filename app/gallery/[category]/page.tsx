@@ -2,7 +2,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { GalleryImageCard } from "@/components/gallery-image-card"
+import { GalleryBatchedGrid } from "@/components/gallery-batched-grid"
 import {
   categoryMeta,
   type GalleryCategory,
@@ -27,6 +27,9 @@ export default async function GalleryCategoryPage({ params }: CategoryPageProps)
   const typedCategory = category as GalleryCategory
   const { items: photos, error } = await getDriveGalleryByCategory(typedCategory)
   const meta = categoryMeta.find((item) => item.key === typedCategory)
+  const batchSize = Number(process.env.GALLERY_BATCH_SIZE ?? "1")
+  const galleryDebug = process.env.GALLERY_DEBUG !== "false"
+  const safeBatchSize = 1
 
   if (!meta) {
     notFound()
@@ -59,17 +62,11 @@ export default async function GalleryCategoryPage({ params }: CategoryPageProps)
               No images found in this Drive folder.
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {photos.map((item) => (
-                <GalleryImageCard
-                  key={item.id}
-                  title={item.title}
-                  alt={item.alt}
-                  date={item.date}
-                  imageSrc={item.imageSrc}
-                />
-              ))}
-            </div>
+            <GalleryBatchedGrid
+              photos={photos}
+              batchSize={safeBatchSize}
+              debug={galleryDebug}
+            />
           )}
 
           <div className="mt-10 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-6">

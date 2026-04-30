@@ -8,11 +8,20 @@ type DriveFile = {
 }
 
 const DRIVE_API_BASE = "https://www.googleapis.com/drive/v3/files"
+const GALLERY_DEBUG = process.env.GALLERY_DEBUG !== "false"
+const SUPPORTED_IMAGE_MIME_TYPES = new Set([
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+  "image/avif",
+])
 
-const categoryFolderMap: Record<GalleryCategory, string> = {
-  plantation: "Plantation",
-  cleaning: "Cleanliness",
-  cloth: "Donation",
+const categoryFolderEnvMap: Record<GalleryCategory, string | undefined> = {
+  plantation: process.env.GOOGLE_DRIVE_FOLDER_ID_PLANTATION,
+  cleaning: process.env.GOOGLE_DRIVE_FOLDER_ID_CLEANLINESS,
+  cloth: process.env.GOOGLE_DRIVE_FOLDER_ID_DONATION,
 }
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
@@ -25,10 +34,24 @@ async function fetchWithRetry(url: string, retries = 2): Promise<Response> {
       const response = await fetch(url, { cache: "no-store" })
       if (!response.ok) {
         const body = await response.text()
+        if (GALLERY_DEBUG) {
+          console.error("[gallery][drive-api][non-ok]", {
+            status: response.status,
+            url: url.replace(/key=[^&]+/, "key=***"),
+            body,
+          })
+        }
         throw new Error(`Drive API ${response.status}: ${body}`)
       }
       return response
     } catch (error) {
+      if (GALLERY_DEBUG) {
+        console.error("[gallery][drive-api][retry]", {
+          attempt,
+          url: url.replace(/key=[^&]+/, "key=***"),
+          error: error instanceof Error ? error.message : String(error),
+        })
+      }
       lastError = error
       if (attempt < retries) {
         await wait(350 * (attempt + 1))
@@ -43,15 +66,15 @@ function formatDate(input?: string) {
   if (!input) return "Unknown date"
   const d = new Date(input)
   if (Number.isNaN(d.getTime())) return "Unknown date"
-  return d.toLocaleDateString("en-IN", { month: "short", year: "numeric" })
+  return d.toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  })
 }
 
 export function driveImageUrl(fileId: string) {
-  const apiKey = process.env.GOOGLE_DRIVE_API_KEY
-  if (!apiKey) {
-    return ""
-  }
-  return `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&key=${apiKey}`
+  return `/api/gallery-image/${fileId}`
 }
 
 async function listFolderChildren(parentId: string, apiKey: string) {
@@ -68,25 +91,26 @@ export async function getDriveGalleryByCategory(category: GalleryCategory): Prom
   error?: string
 }> {
   const apiKey = process.env.GOOGLE_DRIVE_API_KEY
-  const rootFolderId = process.env.GOOGLE_DRIVE_FOLDER_ID
+  const categoryFolderId = categoryFolderEnvMap[category]
 
-  if (!apiKey || !rootFolderId) {
-    return { items: [], error: "Gallery is not configured. Missing Drive environment variables." }
+  if (!apiKey || !categoryFolderId) {
+    return {
+      items: [],
+      error:
+        "Gallery is not configured. Missing GOOGLE_DRIVE_API_KEY or per-category folder ID env variable.",
+    }
   }
 
   try {
-    const rootChildren = await listFolderChildren(rootFolderId, apiKey)
-    const expectedFolder = categoryFolderMap[category].toLowerCase()
-    const categoryFolder = rootChildren.find(
-      (f) => f.mimeType === "application/vnd.google-apps.folder" && f.name.toLowerCase() === expectedFolder
-    )
-
-    if (!categoryFolder) {
-      return { items: [], error: `Could not find '${categoryFolderMap[category]}' folder in Drive.` }
+    const files = await listFolderChildren(categoryFolderId, apiKey)
+    if (GALLERY_DEBUG) {
+      console.log("[gallery][drive-api][list-files]", {
+        category,
+        categoryFolderId,
+        totalFiles: files.length,
+      })
     }
-
-    const files = await listFolderChildren(categoryFolder.id, apiKey)
-    const imageFiles = files.filter((f) => f.mimeType.startsWith("image/"))
+    const imageFiles = files.filter((f) => SUPPORTED_IMAGE_MIME_TYPES.has(f.mimeType.toLowerCase()))
 
     const items: GalleryItem[] = imageFiles.map((file, index) => ({
       id: file.id,
