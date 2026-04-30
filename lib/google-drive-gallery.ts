@@ -5,6 +5,7 @@ type DriveFile = {
   name: string
   mimeType: string
   modifiedTime?: string
+  thumbnailLink?: string
 }
 
 const DRIVE_API_BASE = "https://www.googleapis.com/drive/v3/files"
@@ -77,9 +78,13 @@ export function driveImageUrl(fileId: string) {
   return `/api/gallery-image/${fileId}`
 }
 
+export function driveThumbnailUrl(fileId: string) {
+  return `/api/gallery-thumbnail/${fileId}`
+}
+
 async function listFolderChildren(parentId: string, apiKey: string) {
   const q = `'${parentId}' in parents and trashed=false`
-  const fields = "files(id,name,mimeType,modifiedTime)"
+  const fields = "files(id,name,mimeType,modifiedTime,thumbnailLink)"
   const url = `${DRIVE_API_BASE}?q=${encodeURIComponent(q)}&fields=${encodeURIComponent(fields)}&key=${apiKey}`
   const response = await fetchWithRetry(url)
   const json = (await response.json()) as { files?: DriveFile[] }
@@ -116,6 +121,7 @@ export async function getDriveGalleryByCategory(category: GalleryCategory): Prom
       id: file.id,
       title: file.name,
       imageSrc: driveImageUrl(file.id),
+      thumbnailSrc: driveThumbnailUrl(file.id),
       alt: file.name,
       date: formatDate(file.modifiedTime),
       driveFileId: file.id,

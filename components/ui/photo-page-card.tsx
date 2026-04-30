@@ -1,9 +1,9 @@
 "use client"
 
 import Image from "next/image"
-import { useId, useState, type ReactNode } from "react"
+import { useEffect, useId, useRef, useState, type ReactNode } from "react"
 
-import { cn } from "@/lib/utils"
+import { INITIATIVES_AUTO_TRIGGER_DELAY_MS, cn } from "@/lib/utils"
 
 type PhotoPageTheme = {
   page: string
@@ -50,6 +50,7 @@ type PhotoPageCardProps = {
   direction?: "left" | "right"
   theme?: keyof typeof themeMap
   defaultOpen?: boolean
+  autoOpenOnView?: boolean
   className?: string
 }
 
@@ -62,15 +63,46 @@ export function PhotoPageCard({
   direction = "left",
   theme = "warm",
   defaultOpen = false,
+  autoOpenOnView = false,
   className,
 }: PhotoPageCardProps) {
   const [open, setOpen] = useState(defaultOpen)
+  const [hasAutoOpened, setHasAutoOpened] = useState(false)
   const id = useId()
+  const cardRef = useRef<HTMLButtonElement | null>(null)
+  const autoOpenTimerRef = useRef<number | null>(null)
   const colors = themeMap[theme]
   const imageOnLeft = direction === "left"
 
+  useEffect(() => {
+    const card = cardRef.current
+    if (!card || !autoOpenOnView || hasAutoOpened || open) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (!entry?.isIntersecting || hasAutoOpened || open) return
+        autoOpenTimerRef.current = window.setTimeout(() => {
+          setOpen(true)
+          setHasAutoOpened(true)
+          observer.disconnect()
+        }, INITIATIVES_AUTO_TRIGGER_DELAY_MS)
+      },
+      { threshold: 0.3 }
+    )
+
+    observer.observe(card)
+    return () => {
+      observer.disconnect()
+      if (autoOpenTimerRef.current) {
+        window.clearTimeout(autoOpenTimerRef.current)
+      }
+    }
+  }, [autoOpenOnView, hasAutoOpened, open])
+
   return (
     <button
+      ref={cardRef}
       type="button"
       onClick={() => setOpen((v) => !v)}
       aria-expanded={open}

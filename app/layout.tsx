@@ -28,7 +28,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${dmSans.variable} ${dmSerif.variable} font-sans antialiased`}>
-        <ThemeProvider attribute="class" forcedTheme="light" enableSystem={false} disableTransitionOnChange>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="green"
+          enableSystem={false}
+          themes={["brown", "green"]}
+          disableTransitionOnChange
+        >
           {children}
         </ThemeProvider>
         <Analytics />
