@@ -47,7 +47,11 @@ function formatDate(input?: string) {
 }
 
 export function driveImageUrl(fileId: string) {
-  return `https://drive.google.com/uc?export=view&id=${fileId}`
+  const apiKey = process.env.GOOGLE_DRIVE_API_KEY
+  if (!apiKey) {
+    return ""
+  }
+  return `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&key=${apiKey}`
 }
 
 async function listFolderChildren(parentId: string, apiKey: string) {
